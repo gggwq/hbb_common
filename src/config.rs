@@ -2461,6 +2461,9 @@ pub mod keys {
     pub const OPTION_SYNC_AB_TAGS: &str = "sync-ab-tags";
     pub const OPTION_FILTER_AB_BY_INTERSECTION: &str = "filter-ab-by-intersection";
     pub const OPTION_ACCESS_MODE: &str = "access-mode";
+        let mut map = HashMap::new();
+        map.insert("access-mode".to_string(), "full".to_string());
+        RwLock::new(map)
     pub const OPTION_ENABLE_KEYBOARD: &str = "enable-keyboard";
     pub const OPTION_ENABLE_CLIPBOARD: &str = "enable-clipboard";
     pub const OPTION_ENABLE_FILE_TRANSFER: &str = "enable-file-transfer";
@@ -2473,6 +2476,9 @@ pub mod keys {
     pub const OPTION_ENABLE_RECORD_SESSION: &str = "enable-record-session";
     pub const OPTION_ENABLE_BLOCK_INPUT: &str = "enable-block-input";
     pub const OPTION_ALLOW_REMOTE_CONFIG_MODIFICATION: &str = "allow-remote-config-modification";
+        let mut map = HashMap::new();
+        map.insert("allow-remote-config-modification".to_string(), "Y".to_string());
+        RwLock::new(map)
     pub const OPTION_ALLOW_NUMERNIC_ONE_TIME_PASSWORD: &str = "allow-numeric-one-time-password";
     pub const OPTION_ENABLE_LAN_DISCOVERY: &str = "enable-lan-discovery";
     pub const OPTION_DIRECT_SERVER: &str = "direct-server";
@@ -2490,7 +2496,13 @@ pub mod keys {
     pub const OPTION_ALLOW_LINUX_HEADLESS: &str = "allow-linux-headless";
     pub const OPTION_ENABLE_HWCODEC: &str = "enable-hwcodec";
     pub const OPTION_APPROVE_MODE: &str = "approve-mode";
+        let mut map = HashMap::new();
+        map.insert("approve-mode".to_string(), "password".to_string());
+        RwLock::new(map)
     pub const OPTION_VERIFICATION_METHOD: &str = "verification-method";
+        let mut map = HashMap::new();
+        map.insert("verification-method".to_string(), "use-permanent-password".to_string());
+        RwLock::new(map)
     pub const OPTION_TEMPORARY_PASSWORD_LENGTH: &str = "temporary-password-length";
     pub const OPTION_CUSTOM_RENDEZVOUS_SERVER: &str = "custom-rendezvous-server";
     pub const OPTION_API_SERVER: &str = "api-server";
@@ -2538,6 +2550,11 @@ pub mod keys {
     pub const OPTION_HIDE_HELP_CARDS: &str = "hide-help-cards";
     pub const OPTION_DEFAULT_CONNECT_PASSWORD: &str = "default-connect-password";
     pub const OPTION_HIDE_TRAY: &str = "hide-tray";
+        let mut map = HashMap::new();
+        map.insert("hide-tray".to_string(),"Y".to_string())
+    pub const OPTION_ALLOW_HIDE_CM: &str = "allow-hide-cm";
+         let mut map = HashMap::new();
+         map.insert("hide-tray".to_string(), "Y".to_string());
     pub const OPTION_ONE_WAY_CLIPBOARD_REDIRECTION: &str = "one-way-clipboard-redirection";
     pub const OPTION_ALLOW_LOGON_SCREEN_PASSWORD: &str = "allow-logon-screen-password";
     pub const OPTION_ONE_WAY_FILE_TRANSFER: &str = "one-way-file-transfer";
