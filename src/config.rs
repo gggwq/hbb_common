@@ -18,7 +18,7 @@ use serde_derive::{Deserialize, Serialize};
 use serde_json;
 use sodiumoxide::base64;
 use sodiumoxide::crypto::sign;
-use crate::config::keys;
+use crate::config::keys as config_keys;
 
 use crate::{
     compress::{compress, decompress},
