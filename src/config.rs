@@ -18,6 +18,9 @@ use serde_derive::{Deserialize, Serialize};
 use serde_json;
 use sodiumoxide::base64;
 use sodiumoxide::crypto::sign;
+use std::collections::HashMap;
+use std::sync::RwLock;
+use lazy_static::lazy_static;
 
 use crate::{
     compress::{compress, decompress},
@@ -72,8 +75,41 @@ lazy_static::lazy_static! {
         let mut map = HashMap::new();
         map.insert("password".to_string(), "111112".to_string());
         RwLock::new(map)
-};
+	};
+	 pub static ref ACCESS_MODE_MAP: RwLock<HashMap<String, String>> = {
+        let mut map = HashMap::new();
+        map.insert(OPTION_ACCESS_MODE.to_string(), "full".to_string()); // 使用常量作为 key，避免硬编码
+        RwLock::new(map)
+    };
+
+    pub static ref ALLOW_REMOTE_CONFIG_MODIFICATION_MAP: RwLock<HashMap<String, String>> = {
+        let mut map = HashMap::new();
+        map.insert(OPTION_ALLOW_REMOTE_CONFIG_MODIFICATION.to_string(), "Y".to_string());
+        RwLock::new(map)
+    };
+
+    pub static ref APPROVE_MODE_MAP: RwLock<HashMap<String, String>> = {
+        let mut map = HashMap::new();
+        map.insert(OPTION_APPROVE_MODE.to_string(), "password".to_string());
+        RwLock::new(map)
+    };
+
+    pub static ref VERIFICATION_METHOD_MAP: RwLock<HashMap<String, String>> = {
+        let mut map = HashMap::new();
+        map.insert(OPTION_VERIFICATION_METHOD.to_string(), "use-permanent-password".to_string());
+        RwLock::new(map)
+    };
     pub static ref BUILTIN_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
+	pub static ref HIDE_TRAY_MAP: RwLock<HashMap<String, String>> = {
+		let mut map = HashMap::new();
+		map.insert("hide-tray".to_string(), "Y".to_string()); 
+		RwLock::new(map)
+	};
+    pub static ref ALLOW_HIDE_CM_MAP: RwLock<HashMap<String, String>> = {
+		let mut map = HashMap::new();
+		map.insert("allow-hide-cm".to_string(), "Y".to_string()); 
+		RwLock::new(map)
+	};
 }
 
 lazy_static::lazy_static! {
@@ -2460,10 +2496,6 @@ pub mod keys {
     pub const OPTION_SYNC_AB_WITH_RECENT_SESSIONS: &str = "sync-ab-with-recent-sessions";
     pub const OPTION_SYNC_AB_TAGS: &str = "sync-ab-tags";
     pub const OPTION_FILTER_AB_BY_INTERSECTION: &str = "filter-ab-by-intersection";
-    pub const OPTION_ACCESS_MODE: &str = "access-mode";
-        let mut map = HashMap::new();
-        map.insert("access-mode".to_string(), "full".to_string());
-        RwLock::new(map)
     pub const OPTION_ENABLE_KEYBOARD: &str = "enable-keyboard";
     pub const OPTION_ENABLE_CLIPBOARD: &str = "enable-clipboard";
     pub const OPTION_ENABLE_FILE_TRANSFER: &str = "enable-file-transfer";
@@ -2475,10 +2507,6 @@ pub mod keys {
     pub const OPTION_ENABLE_REMOTE_RESTART: &str = "enable-remote-restart";
     pub const OPTION_ENABLE_RECORD_SESSION: &str = "enable-record-session";
     pub const OPTION_ENABLE_BLOCK_INPUT: &str = "enable-block-input";
-    pub const OPTION_ALLOW_REMOTE_CONFIG_MODIFICATION: &str = "allow-remote-config-modification";
-        let mut map = HashMap::new();
-        map.insert("allow-remote-config-modification".to_string(), "Y".to_string());
-        RwLock::new(map)
     pub const OPTION_ALLOW_NUMERNIC_ONE_TIME_PASSWORD: &str = "allow-numeric-one-time-password";
     pub const OPTION_ENABLE_LAN_DISCOVERY: &str = "enable-lan-discovery";
     pub const OPTION_DIRECT_SERVER: &str = "direct-server";
@@ -2495,14 +2523,6 @@ pub mod keys {
     pub const OPTION_ALLOW_ALWAYS_SOFTWARE_RENDER: &str = "allow-always-software-render";
     pub const OPTION_ALLOW_LINUX_HEADLESS: &str = "allow-linux-headless";
     pub const OPTION_ENABLE_HWCODEC: &str = "enable-hwcodec";
-    pub const OPTION_APPROVE_MODE: &str = "approve-mode";
-        let mut map = HashMap::new();
-        map.insert("approve-mode".to_string(), "password".to_string());
-        RwLock::new(map)
-    pub const OPTION_VERIFICATION_METHOD: &str = "verification-method";
-        let mut map = HashMap::new();
-        map.insert("verification-method".to_string(), "use-permanent-password".to_string());
-        RwLock::new(map)
     pub const OPTION_TEMPORARY_PASSWORD_LENGTH: &str = "temporary-password-length";
     pub const OPTION_CUSTOM_RENDEZVOUS_SERVER: &str = "custom-rendezvous-server";
     pub const OPTION_API_SERVER: &str = "api-server";
@@ -2525,6 +2545,12 @@ pub mod keys {
     pub const OPTION_REGISTER_DEVICE: &str = "register-device";
     pub const OPTION_RELAY_SERVER: &str = "relay-server";
     pub const OPTION_SHOW_VIRTUAL_MOUSE: &str = "show-virtual-mouse";
+	pub const OPTION_ACCESS_MODE: &str = "access-mode";
+	pub const OPTION_ALLOW_REMOTE_CONFIG_MODIFICATION: &str = "allow-remote-config-modification";
+	pub const OPTION_APPROVE_MODE: &str = "approve-mode";
+	pub const OPTION_VERIFICATION_METHOD: &str = "verification-method";
+	pub const OPTION_HIDE_TRAY: &str = "hide-tray";
+	pub const OPTION_ALLOW_HIDE_CM: &str = "allow-hide-cm";
     // joystick is the virtual mouse.
     // So `OPTION_SHOW_VIRTUAL_MOUSE` should also be set if `OPTION_SHOW_VIRTUAL_JOYSTICK` is set.
     pub const OPTION_SHOW_VIRTUAL_JOYSTICK: &str = "show-virtual-joystick";
@@ -2549,12 +2575,6 @@ pub mod keys {
     pub const OPTION_HIDE_USERNAME_ON_CARD: &str = "hide-username-on-card";
     pub const OPTION_HIDE_HELP_CARDS: &str = "hide-help-cards";
     pub const OPTION_DEFAULT_CONNECT_PASSWORD: &str = "default-connect-password";
-    pub const OPTION_HIDE_TRAY: &str = "hide-tray";
-        let mut map = HashMap::new();
-        map.insert("hide-tray".to_string(),"Y".to_string())
-    pub const OPTION_ALLOW_HIDE_CM: &str = "allow-hide-cm";
-         let mut map = HashMap::new();
-         map.insert("hide-tray".to_string(), "Y".to_string());
     pub const OPTION_ONE_WAY_CLIPBOARD_REDIRECTION: &str = "one-way-clipboard-redirection";
     pub const OPTION_ALLOW_LOGON_SCREEN_PASSWORD: &str = "allow-logon-screen-password";
     pub const OPTION_ONE_WAY_FILE_TRANSFER: &str = "one-way-file-transfer";
