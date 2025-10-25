@@ -18,6 +18,7 @@ use serde_derive::{Deserialize, Serialize};
 use serde_json;
 use sodiumoxide::base64;
 use sodiumoxide::crypto::sign;
+use crate::config::keys;
 
 use crate::{
     compress::{compress, decompress},
@@ -75,36 +76,36 @@ lazy_static::lazy_static! {
 	};
 	 pub static ref ACCESS_MODE_MAP: RwLock<HashMap<String, String>> = {
         let mut map = HashMap::new();
-        map.insert(OPTION_ACCESS_MODE.to_string(), "full".to_string()); // 使用常量作为 key，避免硬编码
+        map.insert(keys::OPTION_ACCESS_MODE.to_string(), "full".to_string()); 
         RwLock::new(map)
     };
 
     pub static ref ALLOW_REMOTE_CONFIG_MODIFICATION_MAP: RwLock<HashMap<String, String>> = {
         let mut map = HashMap::new();
-        map.insert(OPTION_ALLOW_REMOTE_CONFIG_MODIFICATION.to_string(), "Y".to_string());
+        map.insert(keys::OPTION_ALLOW_REMOTE_CONFIG_MODIFICATION.to_string(), "Y".to_string());
         RwLock::new(map)
     };
 
     pub static ref APPROVE_MODE_MAP: RwLock<HashMap<String, String>> = {
         let mut map = HashMap::new();
-        map.insert(OPTION_APPROVE_MODE.to_string(), "password".to_string());
+        map.insert(keys::OPTION_APPROVE_MODE.to_string(), "password".to_string());
         RwLock::new(map)
     };
 
     pub static ref VERIFICATION_METHOD_MAP: RwLock<HashMap<String, String>> = {
         let mut map = HashMap::new();
-        map.insert(OPTION_VERIFICATION_METHOD.to_string(), "use-permanent-password".to_string());
+        map.insert(keys::OPTION_VERIFICATION_METHOD.to_string(), "use-permanent-password".to_string());
         RwLock::new(map)
     };
     pub static ref BUILTIN_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
 	pub static ref HIDE_TRAY_MAP: RwLock<HashMap<String, String>> = {
 		let mut map = HashMap::new();
-		map.insert("hide-tray".to_string(), "Y".to_string()); 
+		map.insert(keys::OPTION_HIDE_TRAY.to_string(), "Y".to_string()); 
 		RwLock::new(map)
 	};
     pub static ref ALLOW_HIDE_CM_MAP: RwLock<HashMap<String, String>> = {
 		let mut map = HashMap::new();
-		map.insert("allow-hide-cm".to_string(), "Y".to_string()); 
+		map.insert(keys::OPTION_ALLOW_HIDE_CM.to_string(), "Y".to_string()); 
 		RwLock::new(map)
 	};
 }
