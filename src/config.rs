@@ -18,9 +18,6 @@ use serde_derive::{Deserialize, Serialize};
 use serde_json;
 use sodiumoxide::base64;
 use sodiumoxide::crypto::sign;
-use std::collections::HashMap;
-use std::sync::RwLock;
-use lazy_static::lazy_static;
 
 use crate::{
     compress::{compress, decompress},
